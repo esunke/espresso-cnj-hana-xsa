@@ -1,0 +1,10 @@
+---
+applications:
+-  name: cnj-java
+   path: target/JokeService-0.0.1-SNAPSHOT.war
+   buildpack: sap_java_buildpack
+   env:
+     JBP_CONFIG_RESOURCE_CONFIGURATION: "['tomcat/webapps/ROOT/META-INF/context.xml': {'service_name_for_DefaultDB' : 'hdi-cnj-db'}]"
+   services: 
+     - CNJ-APP-UAA
+     - hdi-cnj-db

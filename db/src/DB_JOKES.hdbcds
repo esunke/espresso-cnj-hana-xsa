@@ -1,0 +1,16 @@
+entity DB_JOKES {
+  CREATEDAT : UTCTimestamp;
+  CREATEDBY : String(255);
+  MODIFIEDAT : UTCTimestamp;
+  MODIFIEDBY : String(255);
+  key ID : String(36);
+  API_ID : String(255);
+  TEXT : LargeString;
+  REVIEW : Integer;
+}
+technical configuration {
+    fulltext index FTI_TEXT on (TEXT)
+        fast preprocess off
+        language detection('en')
+        fuzzy search index on;
+};

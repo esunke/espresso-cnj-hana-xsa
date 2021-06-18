@@ -1,0 +1,10 @@
+---
+applications:
+-  name: cnj-python
+   host: cnj-python
+   path: .
+   command: python server.py
+  
+   services: 
+     - hdi-cnj-db
+     - CNJ-APP-UAA

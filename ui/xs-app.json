@@ -1,0 +1,37 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"routes": [
+		{
+			"source": "/odata/v4",
+			"target": "/odata/v4", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "java_be"
+		},
+		{
+			"source": "/node",
+			"target": "/node", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "node_be"
+		},
+		{
+			"source": "/python",
+			"target": "/", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "python_be"
+		},
+		{
+			"source": "/(.*)",
+			"localDir": "dist", 
+			"cacheControl": "public, max-age=1000,must-revalidate",
+			"authenticationType": "xsuaa", 
+			"scope": ["$XSAPPNAME.access"]
+		}
+	] 
+}

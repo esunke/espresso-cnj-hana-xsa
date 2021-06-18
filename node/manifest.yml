@@ -1,0 +1,10 @@
+---
+applications:
+-  name: cnj-node
+   path: .
+   buildpack: sap_nodejs_buildpack
+   command: node server.js
+  
+   services: 
+     - CNJ-APP-UAA
+     - hdi-cnj-db

@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>createFragmentLabelTitle}" id="jokeDialog" class="sapUiPopupWithPadding">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<f:Form id="FormCreate" editable="true" >
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+							emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer >
+							<f:formElements>
+								<f:FormElement label="{i18n>createFragmentLabelText}">
+									<f:fields>
+										<TextArea id="joketext" value="{newJokes>/text}" valueLiveUpdate="true" growing="true" editable="false"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>createFragmentLabelReview}">
+									<f:fields>
+										<RatingIndicator id="jokereview" maxValue="5" class="sapUiSmallMarginBottom" value="{newJokes>/review}" iconSize="12px" tooltip="Rating Tooltip" />
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>createFragmentLabelAPI_ID}">
+									<f:fields>
+										<Input id="jokeapi_id" value="{newJokes>/id}" valueLiveUpdate="true" editable="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button text="Save" press="onSaveJoke"/>
+		</beginButton>
+		<endButton>
+			<Button text="Exit" press="onCloseNewJokePressed"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,9 @@
+specVersion: "2.1"
+type: application
+metadata:
+  name: CNJ-UI
+resources:
+  configuration:
+    paths:
+      webapp: resources/webapp
+ 

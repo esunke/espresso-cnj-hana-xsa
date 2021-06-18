@@ -1,0 +1,91 @@
+ID: CNJ-APP
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: cnj-db
+   type: hdb
+   path: db
+   requires:
+    - name: hdi-cnj-db
+
+ - name: cnj-python
+   type: python
+   path: python
+   requires:
+    - name: hdi-cnj-db
+    - name: CNJ-APP-UAA    
+   parameters:
+      disk-quota: 256M
+      memory: 128M
+      command:  python server.py
+   provides:
+    - name: python_api
+      properties:
+         url: ${default-url}    
+
+ - name: cnj-java
+   type: java
+   path: java
+   parameters:
+      memory: 512M
+   provides:
+    - name: java_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: CNJ-APP-UAA
+    - name: hdi-cnj-db
+      properties:
+         JBP_CONFIG_RESOURCE_CONFIGURATION: '[tomcat/webapps/ROOT/META-INF/context.xml:
+            {"service_name_for_DefaultDB" : "~{hdi-container-name}"}]'
+
+ - name: cnj-ui
+   type: html5
+   path: ui
+   parameters:
+     memory: 512M
+   requires:
+   - name: CNJ-APP-UAA
+   - name: java_api
+     group: destinations
+     properties:
+       name: java_be
+       url: '~{url}'
+       forwardAuthToken: true
+   - name: node_api
+     group: destinations
+     properties:
+       name: node_be
+       url: '~{url}'
+       forwardAuthToken: true 
+   - name: python_api
+     group: destinations
+     properties:
+       name: python_be
+       url: '~{url}'
+       forwardAuthToken: true        
+
+ - name: cnj-node
+   type: nodejs
+   path: node
+   build-parameters:
+     ignore: ["node_modules/"]
+   provides:
+    - name: node_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: CNJ-APP-UAA
+    - name: hdi-cnj-db
+    - name: cnj-db
+
+resources:
+ - name: hdi-cnj-db
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+ - name: CNJ-APP-UAA
+   type: com.sap.xs.uaa-space
+   parameters:
+      path: xs-security.json

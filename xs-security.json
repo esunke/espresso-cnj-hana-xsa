@@ -1,0 +1,19 @@
+{
+	"xsappname": "CNJ-APP",
+	"scopes": [{
+		"name": "$XSAPPNAME.access",
+		"description": "OData Service User Access"
+	}],
+	"role-templates": [{
+		"name": "GenericODataAccessRole",
+		"scope-references": [
+			"$XSAPPNAME.access"
+		]
+	}]
+}
+
+
+
+
+
+

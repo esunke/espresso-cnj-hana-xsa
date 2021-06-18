@@ -1,0 +1,52 @@
+variables:
+  GIT_SSL_NO_VERIFY: "true"
+
+
+image: xsa_build:latest
+
+stages:
+  - prebuild
+  - build
+  - deploy
+
+prebuild_ui5:
+  stage: prebuild
+  before_script:
+    - cd ui
+  script:
+    - npm install
+    - ui5 build --all
+  artifacts:
+    untracked: true
+  tags:
+  - docker
+
+ 
+build:
+  stage: build
+  script:
+    - mbt build -p xsa --mtar "${CI_PROJECT_NAME}-${CI_PIPELINE_IID}.mtar"
+  artifacts:
+    paths:
+      - mta_archives/
+  dependencies: 
+    - prebuild_ui5
+  tags:
+  - docker    
+
+ 
+deploy:
+  stage: deploy
+  before_script:
+    - echo -e "\nxxx.xxx.xxx.xxx hxehost" >> /etc/hosts
+    - xs login -a $HANA_API -u $HANA_USERNAME -p $HANA_PASSWORD -o HANAExpress -s development --skip-ssl-validation
+  script:
+    - xs deploy mta_archives/${CI_PROJECT_NAME}-${CI_PIPELINE_IID}.mtar -f
+    - xs create-role-collection CNJ-APP -p $HANA_PASSWORD
+    - xs update-role-collection CNJ-APP -a GenericODataAccessRole
+    - xs assign-role-collection CNJ-APP XSA_ADMIN
+    - xs assign-role-collection CNJ-APP XSA_DEV
+  dependencies: 
+    - build
+  tags:
+  - docker    

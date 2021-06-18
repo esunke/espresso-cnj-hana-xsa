@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>userInfoFragmentLabelTitle}" id="userInformation" class="sapUiPopupWithPadding">
+		<content>
+			<VBox class="sapUiSmallMargin">
+				<f:Form id="FormUserInfo" editable="false" >
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+							emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="{i18n>userInfoFragmentLabelUserID}">
+									<f:fields>
+										<Input value="{userInfoModel>/user/id}" id="userid" editable="false"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>userInfoFragmentLabelMailAddress}">
+									<f:fields>
+										<Input value="{userInfoModel>/user/details/email}" id="useremail" editable="false"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>userInfoFragmentLabelScopes}">
+									<f:fields>
+										<TextArea id="userscopes" value="{userInfoModel>/user/details/scope}" valueLiveUpdate="true" growing="true" editable="false"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+		</content>
+		<endButton>
+			<Button text="Exit" press="onCloseUserInfoPressed"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,9 @@
+---
+applications:
+-  name: cnj-ui
+   path: .
+   buildpack: sap_nodejs_buildpack
+   command: node ./approuter-start.js
+  
+   services: 
+     - CNJ-APP-UAA

@@ -1,0 +1,72 @@
+xs-app.json:
+
+
+{
+	"welcomeFile": "webapp/index.html",
+	"authenticationMethod": "route",
+	"routes": [
+		{
+			"source": "/odata/v4",
+			"target": "/odata/v4", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "java_be"
+		},
+		{
+			"source": "/(.*)",
+			"localDir": "resources", 
+			"cacheControl": "public, max-age=1000,must-revalidate",
+			"authenticationType": "xsuaa", 
+			"scope": ["$XSAPPNAME.access"],
+			"replace": {
+	        	"pathSuffixes": [
+	            	"index.html"
+	        	],
+	        	"services": {
+	            	"sapui5_sb": {
+	                	"tag": "ui5"
+	                 }
+	        	}
+			}
+		}
+	] 
+}
+
+*****
+
+		{
+			"source": "/python",
+			"target": "/", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "python_be"
+		},
+
+
+"localDir": "dist", 
+
+
+
+		{
+			"source": "/python",
+			"target": "/", 
+			"authenticationType": "xsuaa",
+	        "scope": ["$XSAPPNAME.access"],
+	        "csrfProtection": true,
+			"destination": "python_be"
+		},
+		
+		
+		
+		
+		"localDir": "dist", 
+		
+		
+		
+		
+index.html:
+
+src="{{{sapui5_sb.url}}}/resources/sap-ui-core.js"
+

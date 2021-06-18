@@ -1,0 +1,61 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:tnt="sap.tnt" height="100%" controllerName="de.espresso.ui.controller.main"
+	displayBlock="true">
+	<Shell id="shell" showLogout="false">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}" floatingFooter="true" showHeader="false">
+					<content>
+						<Table id="idJokeTable" growing="true" growingThreshold="25" growingScrollToLoad="true" inset="false" sticky="ColumnHeaders"
+							fixedLayout="true" items="{ path: '/jokes', sorter: { path: 'createdAt', descending: 'false' } }">
+							<headerToolbar>
+								<OverflowToolbar>
+									<Title text="{i18n>appDescription}" level="H2"/>
+									<ToolbarSpacer/>
+									<SearchField id="searchField" search=".onFilterJokes" width="30%"/>
+								</OverflowToolbar>
+							</headerToolbar>
+							<columns>
+								<Column width="65%" hAlign="Begin">
+									<Text text="{i18n>tableColumnHeaderText}"/>
+								</Column>
+								<Column width="10%" hAlign="Center">
+									<Text text="{i18n>tableColumnHeaderRating}"/>
+								</Column>
+								<Column width="10%" hAlign="Begin">
+									<Text text="{i18n>tableColumnHeaderCreated}"/>
+								</Column>
+								<Column width="15%" hAlign="Begin">
+									<Text text="{i18n>tableColumnHeaderCreationDate}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{text}"/>
+									</cells>
+									<cells>
+										<RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="{review}" iconSize="12px" tooltip="Rating" editable="false"/>
+									</cells>
+									<cells>
+										<Text text="{createdBy}"/>
+									</cells>
+									<cells>
+										<Text text="{createdAt}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<Button text="{i18n>userInfoLabel} {userInfoModel>/user/id}" id="userinfo" press="onGetUserInfo" />
+							<ToolbarSpacer/>
+							<Button text="{i18n>statisticLabel}" id="statistics" press="onGetStatistics"/>
+							<Button text="{i18n>addJokeLabel}" id="create" press="onCreateNewJoke"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
